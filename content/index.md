@@ -18,7 +18,6 @@ It is written in [MyST](https://jupyterbook.org/content/myst.html) and rendered 
 
 ```{code-cell} python3
 :tags: ["hide-cell"]
-%matplotlib inline
 import numpy as np
 import pandas as pd
 from textwrap import wrap
@@ -28,18 +27,24 @@ plt.rcParams.update({'font.size': 16})
 
 import seaborn as sns
 sns.set(context='talk', style='white')
+
+import warnings
+warnings.filterwarnings('ignore')
 ```
 
 We'll use a limited subset of the full survey data.
 Data were collected on a Likert scale from 1-5, where 1 indicates 'very poor' experience with a given aspect of the annual meeting and 5 indicates an 'excellent' experience.
 
 ```{code-cell} python3
-df = pd.read_csv('./ohbm20201-annual-meeting-eval.csv')
+df = pd.read_csv('./ohbm2021-annual-meeting-eval.csv')
 ```
+
+We'll define a new function `plot_stacked_bar` to generate a stacked barplot showing the distribution of responses for each question.
+We can then apply this function to the loaded pandas dataframe and plot the results.
 
 ```{code-cell} python3
 :tags: ["hide-input"]
-def plot_stacked_bar(df, figwidth=20, textwrap=30):
+def plot_stacked_bar(df, figwidth=25, textwrap=30):
     """
     A wrapper function to create a stacked bar plot.
     Seaborn does not implement this directly, so
@@ -77,7 +82,10 @@ def plot_stacked_bar(df, figwidth=20, textwrap=30):
 ```
 
 ```{code-cell} python3
-ax = plot_stacked_bar(data)
+ax = plot_stacked_bar(df)
 fig = ax.figure
 fig.show()
 ```
+
+We can see that 'Experience accessing pre-recorded content in the Screening Room` had the highest proportion of responses indicating an excellent experience,
+while 'Virtual meeting website navigation' had the highest number of respondents with a 'poor' experience.
