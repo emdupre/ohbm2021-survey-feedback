@@ -101,3 +101,19 @@ fig.show()
 
 We can see that 'Experience accessing pre-recorded content in the Screening Room` had the highest proportion of responses indicating an excellent experience,
 while 'Virtual meeting website navigation' had the highest number of respondents with a 'poor' experience.
+
+Rather than rely on visual comparisons, we can also directly quantify these proportions:
+
+```{code-cell} python3
+proportion = []
+questions = []
+for c in df.columns:
+    counts = df[c].value_counts(normalize=True).sort_index()
+    proportion.append(counts.values * 100)
+    questions.append(counts.name)
+
+out = pd.DataFrame(data=proportion, index=questions,
+                   columns=['1: Very poor', '2: Poor', '3: Indifferent',
+                            '4: Good', '5: Very good'])
+out
+```
