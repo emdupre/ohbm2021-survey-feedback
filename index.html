@@ -219,6 +219,102 @@ We can then apply this function to the loaded pandas dataframe and plot the resu
 </div>
 <p>We can see that ‘Experience accessing pre-recorded content in the Screening Room` had the highest proportion of responses indicating an excellent experience,
 while ‘Virtual meeting website navigation’ had the highest number of respondents with a ‘poor’ experience.</p>
+<p>Rather than rely on visual comparisons, we can also directly quantify these proportions:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">proportion</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="n">questions</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">df</span><span class="o">.</span><span class="n">columns</span><span class="p">:</span>
+    <span class="n">counts</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">c</span><span class="p">]</span><span class="o">.</span><span class="n">value_counts</span><span class="p">(</span><span class="n">normalize</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span><span class="o">.</span><span class="n">sort_index</span><span class="p">()</span>
+    <span class="n">proportion</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">counts</span><span class="o">.</span><span class="n">values</span> <span class="o">*</span> <span class="mi">100</span><span class="p">)</span>
+    <span class="n">questions</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">counts</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
+
+<span class="n">out</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">proportion</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="n">questions</span><span class="p">,</span>
+                   <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;1: Very poor&#39;</span><span class="p">,</span> <span class="s1">&#39;2: Poor&#39;</span><span class="p">,</span> <span class="s1">&#39;3: Indifferent&#39;</span><span class="p">,</span>
+                            <span class="s1">&#39;4: Good&#39;</span><span class="p">,</span> <span class="s1">&#39;5: Very good&#39;</span><span class="p">])</span>
+<span class="n">out</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>1: Very poor</th>
+      <th>2: Poor</th>
+      <th>3: Indifferent</th>
+      <th>4: Good</th>
+      <th>5: Very good</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>Virtual Meeting Website Navigation</th>
+      <td>20.967742</td>
+      <td>13.709677</td>
+      <td>30.645161</td>
+      <td>28.225806</td>
+      <td>6.451613</td>
+    </tr>
+    <tr>
+      <th>Suitability of scheduling to optimize your participation in live events</th>
+      <td>10.937500</td>
+      <td>11.718750</td>
+      <td>28.125000</td>
+      <td>26.562500</td>
+      <td>22.656250</td>
+    </tr>
+    <tr>
+      <th>Quality of audio/video experience for the program sessions</th>
+      <td>7.575758</td>
+      <td>18.939394</td>
+      <td>31.060606</td>
+      <td>29.545455</td>
+      <td>12.878788</td>
+    </tr>
+    <tr>
+      <th>Quality of your experience virtually interacting with speakers and other attendees (e.g. chat functions, social lounges, roundtables, etc.)</th>
+      <td>21.495327</td>
+      <td>28.971963</td>
+      <td>26.168224</td>
+      <td>16.822430</td>
+      <td>6.542056</td>
+    </tr>
+    <tr>
+      <th>Experience accessing pre-recorded content in the Screening Room</th>
+      <td>3.787879</td>
+      <td>12.878788</td>
+      <td>21.969697</td>
+      <td>27.272727</td>
+      <td>34.090909</td>
+    </tr>
+    <tr>
+      <th>Asynchronous nature of the program (e.g. view content on your own, use live sessions for questions and moderated discussion)</th>
+      <td>8.620690</td>
+      <td>10.344828</td>
+      <td>35.344828</td>
+      <td>22.413793</td>
+      <td>23.275862</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
 </div>
 
     <script type="text/x-thebe-config">
