@@ -1,6 +1,6 @@
 ---
 jupytext:
-  formats: md:myst,ipynb
+  formats: ipynb, md:myst
   text_representation:
     extension: .md
     format_name: myst
@@ -96,7 +96,6 @@ def plot_stacked_bar(df, figwidth=25, textwrap=30):
 ```
 
 ```{code-cell} python3
-:tags: ["full-width"]
 ax = plot_stacked_bar(df)
 fig = ax.figure
 fig.show()
