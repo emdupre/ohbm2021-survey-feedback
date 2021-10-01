@@ -18,7 +18,7 @@ It is intended to accompany a recent [OHBM Blog](https://www.ohbmbrainmappingblo
 
 ````{margin}
 ```{note}
-All content written in [MyST](https://jupyterbook.org/content/myst.html) and rendered using [Jupyer Book](https://jupyterbook.org/intro.html).
+All content is written in [MyST](https://jupyterbook.org/content/myst.html) and rendered using [Jupyer Book](https://jupyterbook.org/intro.html).
 To ease navigation, several code cells are hidden by default.
 You can expand these code cells by clicking on the 'Click to show' buttons.
 
@@ -96,6 +96,7 @@ def plot_stacked_bar(df, figwidth=25, textwrap=30):
 ```
 
 ```{code-cell} python3
+:tags: ["full-width"]
 ax = plot_stacked_bar(df)
 fig = ax.figure
 fig.show()
