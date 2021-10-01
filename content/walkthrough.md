@@ -1,0 +1,73 @@
+---
+jupytext:
+  formats: md:myst,ipynb
+  text_representation:
+    extension: .md
+    format_name: myst
+    format_version: '0.9'
+    jupytext_version: 1.5.2
+kernelspec:
+  display_name: Python 3
+  name: python3
+---
+
+# OHBM2021 Survey Feedback
+
+This notebook contains code for rendering survey results from the OHBM 2021 Annual Meeting Evaluation.
+It is written in [MyST](https://jupyterbook.org/content/myst.html) and rendered using [Jupyer Book](https://jupyterbook.org/intro.html).
+
+```{code-cell} python3
+:tags: ["hide-cell"]
+%matplotlib inline
+import numpy as np
+import pandas as pd
+from textwrap import wrap
+
+import matplotlib.pyplot as plt
+plt.rcParams.update({'font.size': 16})
+
+import seaborn as sns
+sns.set(context='talk', style='white')
+```
+
+We'll use a limited subset of the full survey data.
+Data were collected on a Likert scale from 1-5, where 1 indicates 'very poor' experience with a given aspect of the annual meeting and 5 indicates an 'excellent' experience.
+
+```{code-cell} python3
+df = pd.read_csv('ohbm20201-annual-meeting-eval.csv')
+```
+
+```{code-cell} python3
+:tags: ["hide-input"]
+def plot_stacked_bar(df, figwidth=12.5, textwrap=30):
+    """
+    A wrapper function to create a stacked bar plot.
+    Seaborn does not implement this directly, so
+    we'll use seaborn styling in matplotlib.
+
+    Parameters
+    ----------
+    figwidth: float
+        The desired width of the figure. Also controls
+        spacing between bars.
+    textwrap: int
+        The number of characters (including spaces) allowed
+        on a line before wrapping to a newline.
+    """
+    fig, ax = plt.subplots(1, 1, figsize=(15, figwidth))
+    bottom = np.zeros(len(df))
+    clrs = sns.color_palette('Set1', n_colors=5)  # to do: check colorblind friendly-ness
+    labels = ['Very Poor', 'Poor', 'Indifferent', 'Good', 'Excellent']
+
+    for rating in range(1, 6):
+        ax.barh(y=df.columns, width=df, left=bottom,
+                tick_label=['\n'.join(wrap(s, textwrap)) for c in df.columns],
+                color=clrs[rating], label=labels[rating])
+        bottom += stackd['count'].get_values()
+
+    sns.despine()
+    ax.set_xlabel('Count', labelpad=20)
+    ax.legend(title='Rating', bbox_to_anchor=(1, 1))
+
+    return ax
+```
