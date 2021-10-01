@@ -34,12 +34,12 @@ We'll use a limited subset of the full survey data.
 Data were collected on a Likert scale from 1-5, where 1 indicates 'very poor' experience with a given aspect of the annual meeting and 5 indicates an 'excellent' experience.
 
 ```{code-cell} python3
-df = pd.read_csv('ohbm20201-annual-meeting-eval.csv')
+df = pd.read_csv('./ohbm20201-annual-meeting-eval.csv')
 ```
 
 ```{code-cell} python3
 :tags: ["hide-input"]
-def plot_stacked_bar(df, figwidth=12.5, textwrap=30):
+def plot_stacked_bar(df, figwidth=20, textwrap=30):
     """
     A wrapper function to create a stacked bar plot.
     Seaborn does not implement this directly, so
@@ -54,20 +54,30 @@ def plot_stacked_bar(df, figwidth=12.5, textwrap=30):
         The number of characters (including spaces) allowed
         on a line before wrapping to a newline.
     """
+    reshape = pd.melt(df, var_name='option', value_name='rating')
+    stack = reshape.rename_axis('count').reset_index().groupby(['option', 'rating']).count().reset_index()
+
     fig, ax = plt.subplots(1, 1, figsize=(15, figwidth))
-    bottom = np.zeros(len(df))
+    bottom = np.zeros(len(stack['option'].unique()))
     clrs = sns.color_palette('Set1', n_colors=5)  # to do: check colorblind friendly-ness
-    labels = ['Very Poor', 'Poor', 'Indifferent', 'Good', 'Excellent']
+    labels = ['Very poor', 'Poor', 'Indifferent', 'Good', 'Very good']
 
     for rating in range(1, 6):
-        ax.barh(y=df.columns, width=df, left=bottom,
-                tick_label=['\n'.join(wrap(s, textwrap)) for c in df.columns],
-                color=clrs[rating], label=labels[rating])
-        bottom += stackd['count'].get_values()
+        stackd = stack.query(f'rating == {rating}')
+        ax.barh(y=stackd['option'], width=stackd['count'], left=bottom,
+                tick_label=['\n'.join(wrap(s, textwrap)) for s in stackd['option']],
+                color=clrs[rating - 1], label=labels[rating - 1])
+        bottom += np.asarray(stackd['count'])
 
     sns.despine()
     ax.set_xlabel('Count', labelpad=20)
     ax.legend(title='Rating', bbox_to_anchor=(1, 1))
 
     return ax
+```
+
+```{code-cell} python3
+ax = plot_stacked_bar(data)
+fig = ax.figure
+fig.show()
 ```
