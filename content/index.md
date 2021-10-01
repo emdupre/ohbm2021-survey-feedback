@@ -100,11 +100,12 @@ fig.show()
 ```
 
 We can see that 'Experience accessing pre-recorded content in the Screening Room` had the highest proportion of responses indicating an excellent experience,
-while 'Virtual meeting website navigation' had the highest number of respondents with a 'poor' experience.
+while 'Virtual meeting website navigation' and 'Quality of your experience virtually interacting with speakers and other attendees' had the highest number of respondents with a poor experience.
 
-Rather than rely on visual comparisons, we can also directly quantify these proportions:
+Rather than rely on visual comparisons, we can also directly quantify the proportion of ratings for each question:
 
 ```{code-cell} python3
+:tags: ["hide-input"]
 proportion = []
 questions = []
 for c in df.columns:
