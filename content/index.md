@@ -14,7 +14,13 @@ kernelspec:
 # OHBM2021 Survey Feedback
 
 This notebook contains code for rendering survey results from the OHBM 2021 Annual Meeting Evaluation.
-It is written in [MyST](https://jupyterbook.org/content/myst.html) and rendered using [Jupyer Book](https://jupyterbook.org/intro.html).
+It is intended to accompany a recent [OHBM Blog](https://www.ohbmbrainmappingblog.com/) post exploring member feedback for the 2021 virtual event.
+
+All content written in [MyST](https://jupyterbook.org/content/myst.html) and rendered using [Jupyer Book](https://jupyterbook.org/intro.html).
+To ease navigation, several code cells are hidden by default.
+You can expand these code cells by clicking on the 'Click to show' buttons.
+You can also load the environment to further explore these data by clicking on the rocket icon in the upper right.
+This will launch a new [MyBinder](https://mybinder.org) session allowing you to re-analyze these data directly in the browser.
 
 ```{code-cell} python3
 :tags: ["hide-cell"]
