@@ -77,7 +77,7 @@ def plot_stacked_bar(df, figwidth=25, textwrap=30):
     fig, ax = plt.subplots(1, 1, figsize=(15, figwidth))
     bottom = np.zeros(len(stack['option'].unique()))
     clrs = sns.color_palette('Set1', n_colors=5)  # to do: check colorblind friendly-ness
-    labels = ['Very poor', 'Poor', 'Indifferent', 'Good', 'Very good']
+    labels = ['Very poor', 'Poor', 'Indifferent', 'Good', 'Excellent']
 
     for rating in range(1, 6):
         stackd = stack.query(f'rating == {rating}')
@@ -114,6 +114,6 @@ for c in df.columns:
 
 out = pd.DataFrame(data=proportion, index=questions,
                    columns=['1: Very poor', '2: Poor', '3: Indifferent',
-                            '4: Good', '5: Very good'])
+                            '4: Good', '5: Excellent']).round(2)
 out
 ```
