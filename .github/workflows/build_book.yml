@@ -32,7 +32,7 @@ jobs:
     # Build the page
     - name: Build the book
       run: |
-        jupyter-book page content/walkthrough.md
+        jupyter-book build --builder singlehtml content/walkthrough.md
 
     # Push the book's HTML to github-pages
     - name: GitHub Pages action
