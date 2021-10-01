@@ -1,5 +1,7 @@
 # OHBM2021 Survey Feedback
 
+[![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/emdupre/ohbm2021-survey-feedback/HEAD?filepath=content%2Findex.md)
+
 This repository contains feedback from the [2021 Annual Meeting Evaluation](./data/ohbm20201-annual-meeting-eval.csv),
 distributed to all registered meeting attendees.
 

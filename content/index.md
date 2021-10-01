@@ -19,7 +19,11 @@ It is intended to accompany a recent [OHBM Blog](https://www.ohbmbrainmappingblo
 All content written in [MyST](https://jupyterbook.org/content/myst.html) and rendered using [Jupyer Book](https://jupyterbook.org/intro.html).
 To ease navigation, several code cells are hidden by default.
 You can expand these code cells by clicking on the 'Click to show' buttons.
-You can also load the environment to further explore these data by clicking on the rocket icon in the upper right.
+
+You can also load the environment to further explore these data by clicking on the `Binder` button:
+
+[![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/emdupre/ohbm2021-survey-feedback/HEAD?filepath=content%2Findex.md)
+
 This will launch a new [MyBinder](https://mybinder.org) session allowing you to re-analyze these data directly in the browser.
 
 ```{code-cell} python3
