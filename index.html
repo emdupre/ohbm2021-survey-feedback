@@ -131,9 +131,8 @@ It is intended to accompany a recent <a class="reference external" href="https:/
 <p>All content is written in <a class="reference external" href="https://jupyterbook.org/content/myst.html">MyST</a> and rendered using <a class="reference external" href="https://jupyterbook.org/intro.html">Jupyer Book</a>.
 To ease navigation, several code cells are hidden by default.
 You can expand these code cells by clicking on the ‘Click to show’ buttons.</p>
-<p>You can also load the environment to further explore these data by clicking on the <code class="docutils literal notranslate"><span class="pre">Binder</span></code> button:</p>
-<p><a class="reference external" href="https://mybinder.org/v2/gh/emdupre/ohbm2021-survey-feedback/HEAD?filepath=content%2Findex.md"><img alt="Binder" src="https://mybinder.org/badge_logo.svg" /></a></p>
-<p>This will launch a new <a class="reference external" href="https://mybinder.org">MyBinder</a> session allowing you to re-analyze these data directly in the browser.</p>
+<p>You can also load an interactive environment to further explore these data by clicking on the Rocket icon in the upper right.:
+This will launch a new <a class="reference external" href="https://mybinder.org">MyBinder</a> session allowing you to re-analyze these data directly in the browser.</p>
 </div>
 <div class="cell tag_hide-cell docutils container">
 <div class="cell_input docutils container">
@@ -142,7 +141,8 @@ You can expand these code cells by clicking on the ‘Click to show’ buttons.<
 <span class="kn">from</span> <span class="nn">textwrap</span> <span class="kn">import</span> <span class="n">wrap</span>
 
 <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">rcParams</span><span class="o">.</span><span class="n">update</span><span class="p">({</span><span class="s1">&#39;font.size&#39;</span><span class="p">:</span> <span class="mi">16</span><span class="p">})</span>
+<span class="kn">from</span> <span class="nn">matplotlib</span> <span class="kn">import</span> <span class="n">cm</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">rcParams</span><span class="o">.</span><span class="n">update</span><span class="p">({</span><span class="s1">&#39;font.size&#39;</span><span class="p">:</span> <span class="mi">24</span><span class="p">})</span>
 
 <span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
 <span class="n">sns</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">context</span><span class="o">=</span><span class="s1">&#39;talk&#39;</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="s1">&#39;white&#39;</span><span class="p">)</span>
@@ -181,6 +181,7 @@ We can then apply this function to the loaded pandas dataframe and plot the resu
 <span class="sd">        The number of characters (including spaces) allowed</span>
 <span class="sd">        on a line before wrapping to a newline.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">magma</span> <span class="o">=</span> <span class="n">cm</span><span class="o">.</span><span class="n">get_cmap</span><span class="p">(</span><span class="s1">&#39;magma&#39;</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span>
     <span class="n">reshape</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">melt</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">var_name</span><span class="o">=</span><span class="s1">&#39;option&#39;</span><span class="p">,</span> <span class="n">value_name</span><span class="o">=</span><span class="s1">&#39;rating&#39;</span><span class="p">)</span>
     <span class="n">stack</span> <span class="o">=</span> <span class="n">reshape</span><span class="o">.</span><span class="n">rename_axis</span><span class="p">(</span><span class="s1">&#39;count&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">reset_index</span><span class="p">()</span><span class="o">.</span><span class="n">groupby</span><span class="p">([</span><span class="s1">&#39;option&#39;</span><span class="p">,</span> <span class="s1">&#39;rating&#39;</span><span class="p">])</span><span class="o">.</span><span class="n">count</span><span class="p">()</span><span class="o">.</span><span class="n">reset_index</span><span class="p">()</span>
 
@@ -193,7 +194,7 @@ We can then apply this function to the loaded pandas dataframe and plot the resu
         <span class="n">stackd</span> <span class="o">=</span> <span class="n">stack</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;rating == </span><span class="si">{</span><span class="n">rating</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
         <span class="n">ax</span><span class="o">.</span><span class="n">barh</span><span class="p">(</span><span class="n">y</span><span class="o">=</span><span class="n">stackd</span><span class="p">[</span><span class="s1">&#39;option&#39;</span><span class="p">],</span> <span class="n">width</span><span class="o">=</span><span class="n">stackd</span><span class="p">[</span><span class="s1">&#39;count&#39;</span><span class="p">],</span> <span class="n">left</span><span class="o">=</span><span class="n">bottom</span><span class="p">,</span>
                 <span class="n">tick_label</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">wrap</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="n">textwrap</span><span class="p">))</span> <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">stackd</span><span class="p">[</span><span class="s1">&#39;option&#39;</span><span class="p">]],</span>
-                <span class="n">color</span><span class="o">=</span><span class="n">clrs</span><span class="p">[</span><span class="n">rating</span> <span class="o">-</span> <span class="mi">1</span><span class="p">],</span> <span class="n">label</span><span class="o">=</span><span class="n">labels</span><span class="p">[</span><span class="n">rating</span> <span class="o">-</span> <span class="mi">1</span><span class="p">])</span>
+                <span class="n">color</span><span class="o">=</span><span class="n">magma</span><span class="o">.</span><span class="n">colors</span><span class="p">[</span><span class="n">rating</span> <span class="o">-</span> <span class="mi">1</span><span class="p">],</span> <span class="n">label</span><span class="o">=</span><span class="n">labels</span><span class="p">[</span><span class="n">rating</span> <span class="o">-</span> <span class="mi">1</span><span class="p">])</span>
         <span class="n">bottom</span> <span class="o">+=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">stackd</span><span class="p">[</span><span class="s1">&#39;count&#39;</span><span class="p">])</span>
 
     <span class="n">sns</span><span class="o">.</span><span class="n">despine</span><span class="p">()</span>
