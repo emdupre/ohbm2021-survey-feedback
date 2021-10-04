@@ -9,6 +9,8 @@ jupytext:
 kernelspec:
   display_name: Python 3
   name: python3
+launch_buttons:
+  notebook_interface: "classic"
 ---
 
 # OHBM2021 Survey Feedback
@@ -21,10 +23,7 @@ All content is written in [MyST](https://jupyterbook.org/content/myst.html) and 
 To ease navigation, several code cells are hidden by default.
 You can expand these code cells by clicking on the 'Click to show' buttons.
 
-You can also load the environment to further explore these data by clicking on the `Binder` button:
-
-[![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/emdupre/ohbm2021-survey-feedback/HEAD?filepath=content%2Findex.md)
-
+You can also load an interactive environment to further explore these data by clicking on the Rocket icon in the upper right.:
 This will launch a new [MyBinder](https://mybinder.org) session allowing you to re-analyze these data directly in the browser.
 ```
 
@@ -35,7 +34,8 @@ import pandas as pd
 from textwrap import wrap
 
 import matplotlib.pyplot as plt
-plt.rcParams.update({'font.size': 16})
+from matplotlib import cm
+plt.rcParams.update({'font.size': 24})
 
 import seaborn as sns
 sns.set(context='talk', style='white')
@@ -71,6 +71,7 @@ def plot_stacked_bar(df, figwidth=25, textwrap=30):
         The number of characters (including spaces) allowed
         on a line before wrapping to a newline.
     """
+    magma = cm.get_cmap('magma', 5)
     reshape = pd.melt(df, var_name='option', value_name='rating')
     stack = reshape.rename_axis('count').reset_index().groupby(['option', 'rating']).count().reset_index()
 
@@ -83,7 +84,7 @@ def plot_stacked_bar(df, figwidth=25, textwrap=30):
         stackd = stack.query(f'rating == {rating}')
         ax.barh(y=stackd['option'], width=stackd['count'], left=bottom,
                 tick_label=['\n'.join(wrap(s, textwrap)) for s in stackd['option']],
-                color=clrs[rating - 1], label=labels[rating - 1])
+                color=magma.colors[rating - 1], label=labels[rating - 1])
         bottom += np.asarray(stackd['count'])
 
     sns.despine()
