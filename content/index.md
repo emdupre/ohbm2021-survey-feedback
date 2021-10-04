@@ -9,8 +9,6 @@ jupytext:
 kernelspec:
   display_name: Python 3
   name: python3
-launch_buttons:
-  notebook_interface: "classic"
 ---
 
 # OHBM2021 Survey Feedback
@@ -23,8 +21,13 @@ All content is written in [MyST](https://jupyterbook.org/content/myst.html) and 
 To ease navigation, several code cells are hidden by default.
 You can expand these code cells by clicking on the 'Click to show' buttons.
 
-You can also load an interactive environment to further explore these data by clicking on the Rocket icon in the upper right.:
-This will launch a new [MyBinder](https://mybinder.org) session allowing you to re-analyze these data directly in the browser.
+You can also load an interactive environment to further explore these data by clicking on the `Binder` button:
+
+[![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/emdupre/ohbm2021-survey-feedback/HEAD?filepath=content%2Findex.md)
+
+This will launch a new [MyBinder](https://mybinder.org) session.
+Right-clicking on the `index.md` file and selecting “Open in notebook editor” will allow you to re-analyze these data directly in the browser.
+
 ```
 
 ```{code-cell} python3
@@ -71,20 +74,19 @@ def plot_stacked_bar(df, figwidth=25, textwrap=30):
         The number of characters (including spaces) allowed
         on a line before wrapping to a newline.
     """
-    magma = cm.get_cmap('magma', 5)
+    plasma = cm.get_cmap('plasma', 5)
     reshape = pd.melt(df, var_name='option', value_name='rating')
     stack = reshape.rename_axis('count').reset_index().groupby(['option', 'rating']).count().reset_index()
 
     fig, ax = plt.subplots(1, 1, figsize=(15, figwidth))
     bottom = np.zeros(len(stack['option'].unique()))
-    clrs = sns.color_palette('Set1', n_colors=5)  # to do: check colorblind friendly-ness
     labels = ['Very poor', 'Poor', 'Indifferent', 'Good', 'Excellent']
 
     for rating in range(1, 6):
         stackd = stack.query(f'rating == {rating}')
         ax.barh(y=stackd['option'], width=stackd['count'], left=bottom,
                 tick_label=['\n'.join(wrap(s, textwrap)) for s in stackd['option']],
-                color=magma.colors[rating - 1], label=labels[rating - 1])
+                color=plasma.colors[rating - 1], label=labels[rating - 1])
         bottom += np.asarray(stackd['count'])
 
     sns.despine()
