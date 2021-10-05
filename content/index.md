@@ -41,7 +41,6 @@ from matplotlib import cm
 plt.rcParams.update({'font.size': 24})
 
 import seaborn as sns
-sns.set(context='talk', style='white')
 
 import warnings
 warnings.filterwarnings('ignore')
@@ -74,10 +73,12 @@ def plot_stacked_bar(df, figwidth=25, textwrap=30):
         The number of characters (including spaces) allowed
         on a line before wrapping to a newline.
     """
-    plasma = cm.get_cmap('plasma', 5)
+    rdylbu = cm.get_cmap('RdYlBu', 5)
+    colors = rdylbu(np.arange(rdylbu.N))
     reshape = pd.melt(df, var_name='option', value_name='rating')
     stack = reshape.rename_axis('count').reset_index().groupby(['option', 'rating']).count().reset_index()
 
+    sns.set(context='talk', style='darkgrid')
     fig, ax = plt.subplots(1, 1, figsize=(15, figwidth))
     bottom = np.zeros(len(stack['option'].unique()))
     labels = ['Very poor', 'Poor', 'Indifferent', 'Good', 'Excellent']
@@ -86,7 +87,7 @@ def plot_stacked_bar(df, figwidth=25, textwrap=30):
         stackd = stack.query(f'rating == {rating}')
         ax.barh(y=stackd['option'], width=stackd['count'], left=bottom,
                 tick_label=['\n'.join(wrap(s, textwrap)) for s in stackd['option']],
-                color=plasma.colors[rating - 1], label=labels[rating - 1])
+                color=colors[rating - 1], label=labels[rating - 1])
         bottom += np.asarray(stackd['count'])
 
     sns.despine()
@@ -102,8 +103,55 @@ fig = ax.figure
 fig.show()
 ```
 
-We can see that 'Experience accessing pre-recorded content in the Screening Room` had the highest proportion of responses indicating an excellent experience,
+We can see that 'Experience accessing pre-recorded content in the Screening Room' had the highest proportion of responses indicating an excellent experience,
 while 'Virtual meeting website navigation' and 'Quality of your experience virtually interacting with speakers and other attendees' had the highest number of respondents with a poor experience.
+
+Alternatively, we can visualize this data with clustered bar charts,
+showing the counts for each response to each question separately.
+To do so, we'll lightly modify our `plot_stacked_bar` and define a new `plot_clustered_bar` function.
+We can then apply this function to the loaded pandas dataframe and plot the results.
+
+```{code-cell} python3
+:tags: ["hide-input"]
+def plot_clustered_bar(df, figwidth=60, textwrap=12):
+    """
+    A wrapper function to create a clustered bar plot.
+    Styling kept as close as possible to `plot_stacked_bar`
+
+    Parameters
+    ----------
+    figwidth: float
+        The desired width of the figure. Also controls
+        spacing between bars.
+    textwrap: int
+        The number of characters (including spaces) allowed
+        on a line before wrapping to a newline.
+    """
+    rdylbu = cm.get_cmap('RdYlBu', 5)
+    colors = rdylbu(np.arange(rdylbu.N))
+    reshape = pd.melt(df, var_name='option', value_name='rating')
+    stack = reshape.rename_axis('count').reset_index().groupby(['option', 'rating']).count().reset_index()
+
+    labels = ['Very poor', 'Poor', 'Indifferent', 'Good', 'Excellent']
+    questions = ['Website navigation', 'Scheduling', 'Audio-visual quality',
+                 'Virtual interactions', 'Pre-recorded content', 'Asynchronous programming']
+
+    sns.set(style='darkgrid', rc={'figure.figsize':(15, figwidth)})
+    fig = sns.catplot(
+        data=stack, kind="bar", x="option", y="count", hue="rating",
+        hue_order=[1.0, 2.0, 3.0, 4.0, 5.0],
+        ci="sd", palette=colors, alpha=0.8, legend=True)
+    fig.despine()
+    fig.set(xticks=range(len(df.columns)), xlabel='')
+    fig.set_xticklabels(['\n'.join(wrap(q, textwrap)) for q in questions])
+
+    return fig
+```
+
+```{code-cell} python3
+fig = plot_clustered_bar(df)
+fig
+```
 
 Rather than rely on visual comparisons, we can also directly quantify the proportion of ratings for each question:
 
