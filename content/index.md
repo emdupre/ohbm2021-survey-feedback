@@ -131,8 +131,9 @@ def plot_clustered_bar(df, figwidth=20, textwrap=12):
     stack = reshape.rename_axis('count').reset_index().groupby(['option', 'rating']).count().reset_index()
 
     labels = ['Very poor', 'Poor', 'Indifferent', 'Good', 'Excellent']
-    questions = ['Website navigation', 'Scheduling', 'Audio-visual quality',
-                 'Virtual interactions', 'Pre-recorded content', 'Asynchronous programming']
+    questions = ['Asynchronous programming', 'Pre-recorded content',
+                 'Audio-visual quality', 'Virtual interactions',
+                 'Scheduling', 'Website navigation']
 
     sns.set(context='notebook')
     sns.set_style('darkgrid', {"axes.facecolor": "#F5F5F5"})
