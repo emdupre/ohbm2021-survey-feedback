@@ -78,8 +78,9 @@ def plot_stacked_bar(df, figwidth=25, textwrap=30):
     reshape = pd.melt(df, var_name='option', value_name='rating')
     stack = reshape.rename_axis('count').reset_index().groupby(['option', 'rating']).count().reset_index()
 
-    sns.set(style='darkgrid')
-    fig, ax = plt.subplots(1, 1, figsize=(45, figwidth))
+    sns.set_style='darkgrid', {"axes.facecolor": ".6"})
+    sns.set_context('talk')
+    fig, ax = plt.subplots(1, 1, figsize=(15, figwidth))
     bottom = np.zeros(len(stack['option'].unique()))
     labels = ['Very poor', 'Poor', 'Indifferent', 'Good', 'Excellent']
 
@@ -136,7 +137,9 @@ def plot_clustered_bar(df, figwidth=25, textwrap=12):
     questions = ['Website navigation', 'Scheduling', 'Audio-visual quality',
                  'Virtual interactions', 'Pre-recorded content', 'Asynchronous programming']
 
-    sns.set(style='darkgrid', rc={'figure.figsize':(45, figwidth)})
+    sns.set(rc={'figure.figsize':(15, figwidth)})
+    sns.set_style='darkgrid', {"axes.facecolor": ".6"})
+    sns.set_context('talk')
     fig = sns.catplot(
         data=stack, kind="bar", x="option", y="count", hue="rating",
         hue_order=[1.0, 2.0, 3.0, 4.0, 5.0],
