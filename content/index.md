@@ -111,7 +111,7 @@ We can then apply this function to the loaded pandas dataframe and plot the resu
 
 ```{code-cell} python3
 :tags: ["hide-input"]
-def plot_clustered_bar(df, figwidth=25, textwrap=12):
+def plot_clustered_bar(df, figwidth=60, textwrap=12):
     """
     A wrapper function to create a clustered bar plot.
     Styling kept as close as possible to `plot_stacked_bar`
@@ -134,7 +134,7 @@ def plot_clustered_bar(df, figwidth=25, textwrap=12):
     questions = ['Website navigation', 'Scheduling', 'Audio-visual quality',
                  'Virtual interactions', 'Pre-recorded content', 'Asynchronous programming']
 
-    sns.set(rc={'figure.figsize':(15, figwidth)})
+    sns.set(rc={'figure.figsize':(15, figwidth)}, context='notebook')
     sns.set_style('darkgrid', {"axes.facecolor": "#F5F5F5"})
     fig = sns.catplot(
         data=stack, kind="bar", x="option", y="count", hue="rating",
@@ -143,6 +143,8 @@ def plot_clustered_bar(df, figwidth=25, textwrap=12):
     fig.despine()
     fig.set(xticks=range(len(df.columns)), xlabel='')
     fig.set_xticklabels(['\n'.join(wrap(q, textwrap)) for q in questions])
+    for t, l in zip(fig._legend.texts, labels):
+        t.set_text(l)
 
     return fig
 ```
