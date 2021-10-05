@@ -135,7 +135,7 @@ def plot_clustered_bar(df, figwidth=20, textwrap=12):
                  'Audio-visual quality', 'Virtual interactions',
                  'Scheduling', 'Website navigation']
 
-    sns.set(context='notebook')
+    sns.set(context='talk')
     sns.set_style('darkgrid', {"axes.facecolor": "#F5F5F5"})
     fig = sns.catplot(
         data=stack, kind="bar", x="option", y="count", hue="rating",
