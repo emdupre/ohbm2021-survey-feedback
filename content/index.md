@@ -73,13 +73,13 @@ def plot_stacked_bar(df, figwidth=25, textwrap=30):
         The number of characters (including spaces) allowed
         on a line before wrapping to a newline.
     """
-    rdylbu = cm.get_cmap('RdYlBu', 5)
-    colors = rdylbu(np.arange(rdylbu.N))
+    rdylgn = cm.get_cmap('RdYlGn', 5)
+    colors = rdylgn(np.arange(rdylgn.N))
     reshape = pd.melt(df, var_name='option', value_name='rating')
     stack = reshape.rename_axis('count').reset_index().groupby(['option', 'rating']).count().reset_index()
 
-    sns.set(context='talk', style='darkgrid')
-    fig, ax = plt.subplots(1, 1, figsize=(15, figwidth))
+    sns.set(style='darkgrid')
+    fig, ax = plt.subplots(1, 1, figsize=(45, figwidth))
     bottom = np.zeros(len(stack['option'].unique()))
     labels = ['Very poor', 'Poor', 'Indifferent', 'Good', 'Excellent']
 
@@ -113,7 +113,7 @@ We can then apply this function to the loaded pandas dataframe and plot the resu
 
 ```{code-cell} python3
 :tags: ["hide-input"]
-def plot_clustered_bar(df, figwidth=60, textwrap=12):
+def plot_clustered_bar(df, figwidth=25, textwrap=12):
     """
     A wrapper function to create a clustered bar plot.
     Styling kept as close as possible to `plot_stacked_bar`
@@ -127,8 +127,8 @@ def plot_clustered_bar(df, figwidth=60, textwrap=12):
         The number of characters (including spaces) allowed
         on a line before wrapping to a newline.
     """
-    rdylbu = cm.get_cmap('RdYlBu', 5)
-    colors = rdylbu(np.arange(rdylbu.N))
+    rdylgn = cm.get_cmap('RdYlGn', 5)
+    colors = rdylgn(np.arange(rdylgn.N))
     reshape = pd.melt(df, var_name='option', value_name='rating')
     stack = reshape.rename_axis('count').reset_index().groupby(['option', 'rating']).count().reset_index()
 
@@ -136,7 +136,7 @@ def plot_clustered_bar(df, figwidth=60, textwrap=12):
     questions = ['Website navigation', 'Scheduling', 'Audio-visual quality',
                  'Virtual interactions', 'Pre-recorded content', 'Asynchronous programming']
 
-    sns.set(style='darkgrid', rc={'figure.figsize':(15, figwidth)})
+    sns.set(style='darkgrid', rc={'figure.figsize':(45, figwidth)})
     fig = sns.catplot(
         data=stack, kind="bar", x="option", y="count", hue="rating",
         hue_order=[1.0, 2.0, 3.0, 4.0, 5.0],
@@ -150,7 +150,7 @@ def plot_clustered_bar(df, figwidth=60, textwrap=12):
 
 ```{code-cell} python3
 fig = plot_clustered_bar(df)
-fig
+fig;
 ```
 
 Rather than rely on visual comparisons, we can also directly quantify the proportion of ratings for each question:
