@@ -78,7 +78,7 @@ def plot_stacked_bar(df, figwidth=25, textwrap=30):
     reshape = pd.melt(df, var_name='option', value_name='rating')
     stack = reshape.rename_axis('count').reset_index().groupby(['option', 'rating']).count().reset_index()
 
-    sns.set_style='darkgrid', {"axes.facecolor": ".6"})
+    sns.set_style('darkgrid', {"axes.facecolor": "#F5F5F5"})
     sns.set_context('talk')
     fig, ax = plt.subplots(1, 1, figsize=(15, figwidth))
     bottom = np.zeros(len(stack['option'].unique()))
@@ -103,9 +103,6 @@ ax = plot_stacked_bar(df)
 fig = ax.figure
 fig.show()
 ```
-
-We can see that 'Experience accessing pre-recorded content in the Screening Room' had the highest proportion of responses indicating an excellent experience,
-while 'Virtual meeting website navigation' and 'Quality of your experience virtually interacting with speakers and other attendees' had the highest number of respondents with a poor experience.
 
 Alternatively, we can visualize this data with clustered bar charts,
 showing the counts for each response to each question separately.
@@ -138,8 +135,7 @@ def plot_clustered_bar(df, figwidth=25, textwrap=12):
                  'Virtual interactions', 'Pre-recorded content', 'Asynchronous programming']
 
     sns.set(rc={'figure.figsize':(15, figwidth)})
-    sns.set_style='darkgrid', {"axes.facecolor": ".6"})
-    sns.set_context('talk')
+    sns.set_style('darkgrid', {"axes.facecolor": "#F5F5F5"})
     fig = sns.catplot(
         data=stack, kind="bar", x="option", y="count", hue="rating",
         hue_order=[1.0, 2.0, 3.0, 4.0, 5.0],
@@ -155,6 +151,9 @@ def plot_clustered_bar(df, figwidth=25, textwrap=12):
 fig = plot_clustered_bar(df)
 fig;
 ```
+
+We can see that 'Experience accessing pre-recorded content in the Screening Room' had the highest proportion of responses indicating an excellent experience,
+while 'Virtual meeting website navigation' and 'Quality of your experience virtually interacting with speakers and other attendees' had the highest number of respondents with a poor experience.
 
 Rather than rely on visual comparisons, we can also directly quantify the proportion of ratings for each question:
 
