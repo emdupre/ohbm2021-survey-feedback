@@ -21,10 +21,7 @@ All content is written in [MyST](https://jupyterbook.org/content/myst.html) and 
 To ease navigation, several code cells are hidden by default.
 You can expand these code cells by clicking on the 'Click to show' buttons.
 
-You can also load an interactive environment to further explore these data by clicking on the `Binder` button:
-
-[![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/emdupre/ohbm2021-survey-feedback/HEAD?filepath=content%2Findex.md)
-
+You can also load an interactive environment to further explore these data by clicking on the rocket icon in the upper right.
 This will launch a new [MyBinder](https://mybinder.org) session.
 Right-clicking on the `index.md` file and selecting “Open in notebook editor” will allow you to re-analyze these data directly in the browser.
 

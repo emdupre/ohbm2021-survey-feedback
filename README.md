@@ -1,8 +1,6 @@
 # OHBM2021 Survey Feedback
 
 [![Jupyter Book Badge](https://jupyterbook.org/badge.svg)](https://emdupre.github.io/ohbm2021-survey-feedback)
-[![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/emdupre/ohbm2021-survey-feedback/HEAD?filepath=content%2Findex.md)
-
 
 ## Included contents
 
