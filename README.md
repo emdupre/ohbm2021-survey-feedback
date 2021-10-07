@@ -13,7 +13,7 @@ Respondents could elect to skip one or more questions.
 As a result, each of the included questions has a variable number of responses.
 
 Note that we are only including anonymized answers to the subset of questions that are discussed in the
-recent blogpost summarizing OHBM 2021 feedback [LINK HERE WHEN POSTED].
+[recent blogpost summarizing feedback from the OHBM2021 annual meeting](https://www.ohbmbrainmappingblog.com/blog/ohbm2022-plans-ohbm2021-survey-results).
 
 ## Interacting with these materials
 
